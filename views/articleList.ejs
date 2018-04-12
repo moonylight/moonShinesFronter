@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include header %>
+	<link rel='stylesheet' href='/stylesheets/articleList.css' />
+</head>
+<body>
+	<div id="main_content">
+		<%- include nav %>	
+		<div id="content_outer">
+			<section>	
+				<h3><%= navDesc%></h3>
+				<hr />
+				<% if (!articleList.length) {%>
+				<p>暂无<%= title%></p>
+				<% } else { %>
+				<ul class='ul_list'>
+					<% articleList.forEach(function (article) { %>
+					<li>
+						<a href="/articleDetail/<%= article._id%>" style='font-size: 1.1rem;'><%= article.articleTitle%></a>
+						<span style=' float: right; font-size: 0.8rem;'><%= article.modifyTime%> | <%= article.visitedTime%>次浏览<% if (article.isVisible) {%> | 
+							<a href="javascript: void(0);">留言(<%= article.msgNum%>)</a>
+						<% }%>
+						</span><%- article.firstParagraph%></li>
+					<% }) %>
+				</ul>
+				<% }%>
+			</section>
+		</div>
+	</div>
+	<%- include footer %>	
+	<script type="text/javascript">
+		seajs.use(["articleList.js"]);
+	</script>
+</body>
+</html>
